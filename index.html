@@ -163,21 +163,6 @@
   .cloud::after{ width:45%; height:110%; top:-45%; right:10%; }
   @keyframes driftCloud{ from{ transform:translateX(-120%);} to{ transform:translateX(120vw);} }
 
-  /* ---------- falling sakura petals ---------- */
-  .petal{
-    position:absolute;
-    width:10px; height:10px;
-    background:var(--pink);
-    border-radius: 8px 0 8px 0;
-    opacity:.9;
-    animation: fallPetal linear infinite;
-    pointer-events:none;
-  }
-  @keyframes fallPetal{
-    0%{ transform:translateY(-10vh) rotate(0deg); opacity:.9; }
-    100%{ transform:translateY(110vh) rotate(360deg); opacity:.2; }
-  }
-
   /* ---------- hearts / sparkle burst on click ---------- */
   .burst-heart{
     position:fixed;
@@ -538,7 +523,6 @@
 
 <div id="stars"></div>
 <div id="clouds" aria-hidden="true" style="position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;"></div>
-<div id="petals" aria-hidden="true" style="position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;"></div>
 <div id="skillToast" style="position:fixed; top:24px; left:50%; transform:translate(-50%,-140%); z-index:1000; font-family:'Press Start 2P',monospace; font-size:12px; background:var(--pink); color:#fff; border:3px solid #000; border-radius:8px; padding:10px 18px; box-shadow:4px 4px 0 #000; transition: transform .35s cubic-bezier(.34,1.56,.64,1); white-space:nowrap;">✦ SKILL UNLOCKED</div>
 
 <!-- Top HUD Navigation Row -->
@@ -687,392 +671,126 @@
 </section>
 
 <!-- ==========================================================================
-     LEVEL 3: ISOMETRIC 3D KEYBOARD SKILLS SECTION
+     PINK THEME: ISOMETRIC 3D KEYBOARD SECTION
      ========================================================================== -->
 <section id="level2" class="keyboard-skills-section">
   
-  <!-- Left Side: Dynamic Info Panel with Block Text Styling -->
+  <!-- Left Side: Dynamic Info Panel -->
   <div class="keyboard-intro">
-    
     <h2 class="lvl-text">Level 02</h2>
-    
     <div class="brand-text-wrapper">
-      <h2 class="skills-brand-title" id="skill-title">Docker</h2>
-      <p class="skills-brand-sub" id="skill-desc">The best containerization!</p>
+      <h2 class="skills-brand-title" id="skill-title">Tools</h2>
+      <p class="skills-brand-sub" id="skill-desc">Select a key to see the details.</p>
     </div>
   </div>
 
   <!-- Right Side: 3D Keyboard Scene -->
   <div class="keyboard-scene">
     <div class="isometric-base">
-      <div class="keyboard-pad">
-        
-        <!-- Row 1 -->
-        <div class="key-cap k-js active-default" data-key="j" data-name="JavaScript" data-desc="Bringing pages to life with high-performance scripting.">
-          <span class="icon">JS</span>
-        </div>
-        <div class="key-cap k-ts" data-key="t" data-name="TypeScript" data-desc="Type-safe JavaScript for scalable and robust apps.">
-          <span class="icon">TS</span>
-        </div>
-        <div class="key-cap k-html" data-key="5" data-name="HTML5" data-desc="Building the semantic backbone of the modern web.">
-          <span class="icon">5</span>
-        </div>
-        <div class="key-cap k-css" data-key="c" data-name="CSS3" data-desc="Crafting stunning layouts and smooth interactive experiences.">
-          <span class="icon">3</span>
-        </div>
-        <div class="key-cap k-react" data-key="r" data-name="React" data-desc="Building declarative, component-driven user interfaces.">
-          <span class="icon">⚛</span>
-        </div>
-        <div class="key-cap k-vue" data-key="v" data-name="Vue" data-desc="Progressive and intuitive frontend frameworks.">
-          <span class="icon">V</span>
-        </div>
-        
-        <!-- Row 2 -->
-        <div class="key-cap k-next" data-key="n" data-name="Next.js" data-desc="The React framework for production-grade SSR and SEO.">
-          <span class="icon">N</span>
-        </div>
-        <div class="key-cap k-tailwind" data-key="w" data-name="Tailwind" data-desc="Rapid UI development with utility-first CSS styling.">
-          <span class="icon">≈</span>
-        </div>
-        <div class="key-cap k-node" data-key="e" data-name="Node.js" data-desc="Scalable server-side execution with asynchronous V8 speed.">
-          <span class="icon">⬢</span>
-        </div>
-        <div class="key-cap k-express" data-key="x" data-name="Express" data-desc="Minimalist and flexible web framework for Node.js APIs.">
-          <span class="icon">ex</span>
-        </div>
-        <div class="key-cap k-postgres" data-key="o" data-name="PostgreSQL" data-desc="Powerful, open-source object-relational database engine.">
-          <span class="icon">🐘</span>
-        </div>
-        <div class="key-cap k-mongodb" data-key="m" data-name="MongoDB" data-desc="Flexible document-based NoSQL database management.">
-          <span class="icon">🍃</span>
-        </div>
-        
-        <!-- Row 3 -->
-        <div class="key-cap k-git" data-key="g" data-name="Git" data-desc="Distributed version control for seamless team collaboration.">
-          <span class="icon">Git</span>
-        </div>
-        <div class="key-cap k-github" data-key="h" data-name="GitHub" data-desc="Sliding into those pull requests, IYKYK!">
-          <span class="icon">🐙</span>
-        </div>
-        <div class="key-cap k-python" data-key="p" data-name="Python" data-desc="Versatile scripting, data science, and backend engineering.">
-          <span class="icon">Py</span>
-        </div>
-        <div class="key-cap k-npm" data-key="i" data-name="NPM" data-desc="Managing dependencies efficiently across the JavaScript world.">
-          <span class="icon">npm</span>
-        </div>
-        <div class="key-cap k-firebase" data-key="f" data-name="Firebase" data-desc="Realtime databases and backend-as-a-service utilities.">
-          <span class="icon">🔥</span>
-        </div>
-        <div class="key-cap k-wordpress" data-key="b" data-name="WordPress" data-desc="Powering content delivery across the global web ecosystem.">
-          <span class="icon">W</span>
-        </div>
-        
-        <!-- Row 4 -->
-        <div class="key-cap k-linux" data-key="l" data-name="Linux" data-desc="Operating system environments and shell systems management.">
-          <span class="icon">🐧</span>
-        </div>
-        <div class="key-cap k-docker" data-key="d" data-name="Docker" data-desc="The best containerization tool for modern applications!">
-          <span class="icon">🐋</span>
-        </div>
-        <div class="key-cap k-nginx" data-key="u" data-name="Nginx" data-desc="High-performance reverse proxy and web load balancing server.">
-          <span class="icon">N𝘅</span>
-        </div>
-        <div class="key-cap k-aws" data-key="a" data-name="AWS" data-desc="Cloud computing infrastructure and distributed application hosting.">
-          <span class="icon">aws</span>
-        </div>
-        <div class="key-cap k-vim" data-key="q" data-name="Vim" data-desc="高效的文件编辑 and developer terminal workflows.">
-          <span class="icon">Vim</span>
-        </div>
-        <div class="key-cap k-blank" data-key="enter" data-name="Enter" data-desc="Ready to push code into production spaces?">
-          <span class="icon">▲</span>
-        </div>
-        
+      <div class="keyboard-pad" id="keyboard-pad">
+          <!-- Row 1 -->
+          <div class="key-cap" data-key="p" data-name="Python" data-desc="Backend & Automation Powerhouse"><span class="icon">🐍</span></div>
+          <div class="key-cap" data-key="j" data-name="JavaScript" data-desc="The Language of the Web"><span class="icon">📜</span></div>
+          <div class="key-cap" data-key="s" data-name="SQL" data-desc="Database Query Language"><span class="icon">🗄️</span></div>
+          <div class="key-cap" data-key="g" data-name="Git" data-desc="Version Control Master"><span class="icon">🌿</span></div>
+          <div class="key-cap" data-key="d" data-name="Docker" data-desc="Containerization Pro"><span class="icon">🐋</span></div>
+          <div class="key-cap" data-key="a" data-name="AWS" data-desc="Cloud Infrastructure"><span class="icon">☁️</span></div>
+
+          <!-- Row 2 -->
+          <div class="key-cap" data-key="1" data-name="Django" data-desc="High-level Python Framework"><span class="icon">🚀</span></div>
+          <div class="key-cap" data-key="2" data-name="FastAPI" data-desc="Modern High-Performance APIs"><span class="icon">⚡</span></div>
+          <div class="key-cap" data-key="3" data-name="Flask" data-desc="Lightweight Web Micro-framework"><span class="icon">🧪</span></div>
+          <div class="key-cap" data-key="e" data-name="Node.js" data-desc="Scalable Server-side Runtime"><span class="icon">🟢</span></div>
+          <div class="key-cap" data-key="o" data-name="PostgreSQL" data-desc="Advanced Open Source Database"><span class="icon">🐘</span></div>
+          <div class="key-cap" data-key="r" data-name="Redis" data-desc="In-memory Data Structure Store"><span class="icon">🔴</span></div>
+
+          <!-- Row 3 -->
+          <div class="key-cap" data-key="4" data-name="Pandas" data-desc="Data Analysis & Manipulation"><span class="icon">🐼</span></div>
+          <div class="key-cap" data-key="5" data-name="NumPy" data-desc="Numerical Computing Library"><span class="icon">🔢</span></div>
+          <div class="key-cap" data-key="6" data-name="Scikit" data-desc="Machine Learning Essentials"><span class="icon">🤖</span></div>
+          <div class="key-cap" data-key="7" data-name="PyTorch" data-desc="Deep Learning AI Research"><span class="icon">🔥</span></div>
+          <div class="key-cap" data-key="8" data-name="TensorFlow" data-desc="End-to-end ML Platform"><span class="icon">🧠</span></div>
+          <div class="key-cap" data-key="9" data-name="Jupyter" data-desc="Interactive Computing Lab"><span class="icon">📓</span></div>
+
+          <!-- Row 4 -->
+          <div class="key-cap" data-key="l" data-name="Linux" data-desc="OS Management & Shell"><span class="icon">🐧</span></div>
+          <div class="key-cap" data-key="v" data-name="VS Code" data-desc="Efficient Code Editor"><span class="icon">💻</span></div>
+          <div class="key-cap" data-key="m" data-name="Postman" data-desc="API Testing & Development"><span class="icon">📬</span></div>
+          <div class="key-cap" data-key="h" data-name="Matplotlib" data-desc="Data Visualization"><span class="icon">📊</span></div>
+          <div class="key-cap" data-key="b" data-name="Bash" data-desc="Terminal Automation"><span class="icon">🐚</span></div>
+          <div class="key-cap" data-key="enter" data-name="Ready" data-desc="Let's build something great!"><span class="icon">✅</span></div>
       </div>
     </div>
   </div>
-
 </section>
 
 <style>
-  /* ---------- Section Layout ---------- */
+  /* Theme Colors */
+  :root {
+    --pink-bg: #fff0f5;
+    --baby-pink: #ffcce0;
+    --deep-pink: #ff85b3;
+    --text-pink: #d63384;
+  }
+
   .keyboard-skills-section {
-    position: relative;
-    z-index: 2;
-    max-width: 1300px;
-    margin: 60px auto;
-    padding: 80px 40px;
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    padding: 60px;
+    background: var(--pink-bg);
+    border-radius: 30px;
     align-items: center;
-    background: radial-gradient(circle at 70% 30%, #2e0f24 0%, #14060f 70%);
-    border-radius: 20px;
-    overflow: hidden;
   }
 
-  @media (max-width: 990px) {
-    .keyboard-skills-section {
-      grid-template-columns: 1fr;
-      text-align: center;
-      padding: 40px 20px;
-    }
-  }
-
-  /* --- Dynamic Info Text (Left Side) --- */
-  .keyboard-intro {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding-left: 20px;
-  }
+  .skills-brand-title { font-size: 50px; color: var(--text-pink); }
   
-  /* Huge Background Accent Text */
-  .skills-bg-title {
-    font-family: 'Arial Black', Impact, sans-serif;
-    font-size: clamp(60px, 8vw, 110px);
-    font-weight: 900;
-    color: rgba(255, 255, 255, 0.07);
-    line-height: 0.9;
-    letter-spacing: 2px;
-    user-select: none;
-    margin-bottom: -10px;
-  }
-  
-  .hint-text {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 14px;
-    font-weight: bold;
-    color: #a0a5c0;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    animation: pulseHint 1.5s infinite alternate;
-  }
-  @keyframes pulseHint { from{opacity:0.4;} to{opacity:1;} }
-
-  .brand-text-wrapper {
-    margin-top: 5px;
-    min-height: 180px; /* Prevents layout shifting when content swaps */
-  }
-  
-  /* Heavy 3D Block Styled Title text matching the image */
-  .skills-brand-title {
-    font-family: 'Arial Black', Impact, sans-serif;
-    font-size: clamp(42px, 5vw, 68px);
-    font-weight: 900;
-    color: #fff;
-    /* Distinct bold block 3D shadow style */
-    text-shadow: 
-      1px 1px 0px #ccc,
-      2px 2px 0px #bbb,
-      3px 3px 0px #aaa,
-      4px 4px 0px #999,
-      5px 5px 0px #888,
-      6px 6px 8px rgba(0, 0, 0, 0.5);
-    transform: rotate(-4deg);
-    display: inline-block;
-    letter-spacing: -1px;
-    margin: 0 0 10px 0;
-  }
-  
-  .skills-brand-sub {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: clamp(18px, 2.5vw, 24px);
-    font-weight: bold;
-    color: #fff;
-    margin-top: 5px;
-    max-width: 450px;
-    line-height: 1.3;
-    transform: rotate(-2deg);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-  }
-
-  /* --- 3D Isometric View Container --- */
-  .keyboard-scene {
-    perspective: 1200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
-
   .isometric-base {
-    width: 100%;
-    max-width: 620px;
-    background: #1c1d24;
+    background: var(--deep-pink);
     padding: 20px;
-    border-radius: 36px;
-    box-shadow: 
-      -25px 35px 50px rgba(0,0,0,0.7), 
-      inset 0 3px 6px rgba(255,255,255,0.08);
-    border: 5px solid #2a2c38;
-    /* Clean custom angle for isometric layout */
-    transform: rotateX(52deg) rotateZ(-36deg);
-    transform-style: preserve-3d;
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  .isometric-base:hover {
-    transform: rotateX(46deg) rotateZ(-30deg) translateY(-15px);
+    border-radius: 20px;
+    transform: rotateX(40deg) rotateZ(-20deg);
   }
 
-  /* 4 rows x 6 columns grid style layout */
   .keyboard-pad {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 14px;
-    background: #0f1015;
-    padding: 18px;
-    border-radius: 24px;
-    border: 4px solid #050508;
-    box-shadow: inset 0 0 25px rgba(0,0,0,0.9);
+    gap: 10px;
   }
 
-  /* --- 3D Mechanical High Profile Keycaps --- */
   .key-cap {
-    position: relative;
-    aspect-ratio: 1;
-    border-radius: 12px;
+    background: var(--baby-pink);
+    padding: 20px;
+    border-radius: 10px;
     cursor: pointer;
-    transform-style: preserve-3d;
-    transition: transform 0.06s ease, box-shadow 0.06s ease;
-    
-    /* Strong 3D Deep Shadow profile to emulate Cherry profile caps */
-    background: var(--key-color, #333);
-    box-shadow: 
-      -2px 3px 0px var(--key-shadow, #111),
-      -4px 6px 0px var(--key-dark shadow, #050508),
-      -6px 9px 12px rgba(0,0,0,0.7);
+    text-align: center;
+    font-size: 25px;
+    box-shadow: 0 5px 0 #ff99cc;
+    transition: 0.1s;
   }
 
-  /* Key Pressed Active Animation State */
-  .key-cap.pressed, .key-cap:active {
-    transform: translate(-4px, 6px);
-    box-shadow: 
-      -1px 1px 0px var(--key-shadow, #111),
-      -2px 2px 4px rgba(0,0,0,0.8);
+  .key-cap:active, .key-cap.pressed {
+    transform: translateY(5px);
+    box-shadow: none;
   }
-
-  /* Key Cap Face / Top Plate */
-  .key-cap .icon {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Arial Black', sans-serif;
-    font-weight: 900;
-    font-size: clamp(12px, 1.8vw, 18px);
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-    border-radius: 9px;
-    border-top: 3px solid rgba(255,255,255,0.25);
-    border-left: 1px solid rgba(255,255,255,0.15);
-    pointer-events: none;
-  }
-
-  /* --- Matched Visual Colors Hex Palette --- */
-  .k-js { --key-color: #ff8fc7; --key-shadow: #d9539c; }
-  .k-ts { --key-color: #ff5fb4; --key-shadow: #c22e85; }
-  .k-html { --key-color: #ff1f8f; --key-shadow: #b3116a; }
-  .k-css { --key-color: #d93b8a; --key-shadow: #9c2261; }
-  .k-react { --key-color: #ffb1de; --key-shadow: #dd7cb5; }
-  .k-vue { --key-color: #ff9ec9; --key-shadow: #d4699e; }
-
-  .k-next { --key-color: #3a0f2e; --key-shadow: #22071a; }
-  .k-tailwind { --key-color: #ffd1e3; --key-shadow: #e0a6bf; }
-  .k-node { --key-color: #ff6bab; --key-shadow: #d13f80; }
-  .k-express { --key-color: #4a1a3a; --key-shadow: #2c0f24; }
-  .k-postgres { --key-color: #ff85bd; --key-shadow: #d95590; }
-  .k-mongodb { --key-color: #ffa8d1; --key-shadow: #d97ba8; }
-
-  .k-git { --key-color: #ff2a93; --key-shadow: #b3116a; }
-  .k-github { --key-color: #2b0e22; --key-shadow: #170610; }
-  .k-python { --key-color: #ff7ac0; --key-shadow: #cc4d92; }
-  .k-npm { --key-color: #e0468f; --key-shadow: #a12960; }
-  .k-firebase { --key-color: #ffc2dd; --key-shadow: #d992b3; }
-  .k-wordpress { --key-color: #c2136a; --key-shadow: #870d4a; }
-
-  .k-linux { --key-color: #4a1a3a; --key-shadow: #2c0f24; }
-  .k-docker { --key-color: #ff4fa3; --key-shadow: #c22e78; }
-  .k-nginx { --key-color: #ff9fd1; --key-shadow: #d472a6; }
-  .k-aws { --key-color: #ff5fb4; --key-shadow: #c2368a; }
-  .k-vim { --key-color: #ffdcec; --key-shadow: #d9aec2; }
-  .k-blank { --key-color: #6b2450; --key-shadow: #3a0f2e; }
 </style>
 
 <script>
-  const titleEl = document.getElementById('skill-title');
-  const descEl = document.getElementById('skill-desc');
-  const skillToastEl = document.getElementById('skillToast');
-  let typeTimer = null;
-  let toastTimer = null;
+  const keys = document.querySelectorAll('.key-cap');
+  const title = document.getElementById('skill-title');
+  const desc = document.getElementById('skill-desc');
 
-  // Typewriter reveal so the description visibly "writes itself" on click
-  function typeText(el, text, speed = 16) {
-    if (typeTimer) clearInterval(typeTimer);
-    el.textContent = '';
-    let i = 0;
-    typeTimer = setInterval(() => {
-      el.textContent += text.charAt(i);
-      i++;
-      if (i >= text.length) clearInterval(typeTimer);
-    }, speed);
-  }
-
-  // Helper to dynamically update texts with a snappy micro-animation change
-  function updateSkillInfo(keyElement, animate) {
-    if (!keyElement) return;
-
-    const skillName = keyElement.getAttribute('data-name');
-    const skillDesc = keyElement.getAttribute('data-desc');
-
-    titleEl.textContent = skillName;
-    if (animate) {
-      typeText(descEl, skillDesc);
-      // Pop a "skill unlocked" toast for extra game-y feedback
-      skillToastEl.textContent = '✦ ' + skillName.toUpperCase() + ' UNLOCKED';
-      skillToastEl.style.transform = 'translate(-50%, 0)';
-      if (toastTimer) clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        skillToastEl.style.transform = 'translate(-50%, -140%)';
-      }, 1400);
-    } else {
-      descEl.textContent = skillDesc;
-    }
-  }
-
-  // Handle Physical Keydown Events
-  window.addEventListener('keydown', (e) => {
-    const keyPressed = e.key.toLowerCase();
-    const targetKey = document.querySelector(`.key-cap[data-key="${keyPressed}"]`);
-    
-    if (targetKey) {
-      targetKey.classList.add('pressed');
-      updateSkillInfo(targetKey, true);
+  keys.forEach(key => {
+    key.addEventListener('click', () => {
+      // Update Text
+      title.innerText = key.getAttribute('data-name');
+      desc.innerText = key.getAttribute('data-desc');
       
-      setTimeout(() => {
-        targetKey.classList.remove('pressed');
-      }, 120);
-    }
-  });
-
-  // Handle UI Click Events
-  document.querySelectorAll('.key-cap').forEach(key => {
-    key.addEventListener('click', (e) => {
+      // Animate Press
       key.classList.add('pressed');
-      updateSkillInfo(key, true);
-      heartBurst(e.clientX, e.clientY);
-
-      setTimeout(() => {
-        key.classList.remove('pressed');
-      }, 100);
+      setTimeout(() => key.classList.remove('pressed'), 200);
     });
   });
-
-  // Load standard layout default state on mount (no animation on first paint)
-  const defaultKey = document.querySelector('.active-default');
-  if (defaultKey) updateSkillInfo(defaultKey, false);
 </script>
-
 
 <!-- ==========================================================================
      LEVEL 4: RETRO PROJECTS SELECTION SECTION
@@ -1383,9 +1101,9 @@
         <h3 class="form-title">Contact Form</h3>
         <p class="form-subtitle">Please contact me directly at ishikagpt1@gmail.com or drop your info here.</p>
 
-        <form action="https://formspree.io/f/xyzkgrpq" method="POST" class="retro-form">
-          <input type="hidden" name="_to" value="ishikagpt1@gmail.com">
-          
+        
+        <form id="contact-form" action="https://formspree.io/f/mbdnyrrd" method="POST" class="retro-form"> 
+
           <div class="form-row-split">
             <div class="form-group">
               <label for="name">Full name</label>
@@ -1400,15 +1118,17 @@
 
           <div class="form-group">
             <label for="message">Your Message</label>
-            <textarea id="message" name="message" placeholder="Tell me about your project," rows="5" required></textarea>
+            <textarea id="message" name="message" placeholder="Tell me about your projects..." rows="5" required></textarea>
           </div>
 
           <p class="privacy-note">I'll never share your data with anyone else. Pinky promise!</p>
 
-          <button type="submit" class="submit-btn">
-            <span>Send Message</span>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span id="submitBtnLabel">Send Message</span>
             <span class="btn-arrow">>></span>
           </button>
+
+          <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
         </form>
 
       </div>
@@ -1434,11 +1154,11 @@
           </a>
 
           <!-- Phone Link -->
-          <a href="tel:+918921847681" class="contact-row">
+          <a href="tel:+919634833336" class="contact-row">
             <span class="contact-code">[CALL]</span>
             <div class="contact-info">
               <span class="contact-label">PHONE</span>
-              <span class="contact-value">+91 8921847681</span>
+              <span class="contact-value">+91 9634833336</span>
             </div>
           </a>
 
@@ -1452,29 +1172,29 @@
           </a>
 
           <!-- LinkedIn Link -->
-          <a href="https://linkedin.com/in/meeramanoj111" target="_blank" class="contact-row">
+          <a href="https://www.linkedin.com/in/ishika-guptax/" target="_blank" class="contact-row">
             <span class="contact-code">[LINK]</span>
             <div class="contact-info">
               <span class="contact-label">LINKEDIN</span>
-              <span class="contact-value">linkedin.com/in/meeramanoj111</span>
+              <span class="contact-value">linkedin.com/in/ishika-guptax</span>
             </div>
           </a>
 
           <!-- LeetCode Link -->
-          <a href="https://leetcode.com/u/ishika_gupta/" target="_blank" class="contact-row">
+          <a href="https://leetcode.com/u/Ishika_Guptaa25/" target="_blank" class="contact-row">
             <span class="contact-code">[CODE]</span>
             <div class="contact-info">
               <span class="contact-label">LEETCODE</span>
-              <span class="contact-value">leetcode.com/u/ishika_gupta/</span>
+              <span class="contact-value">leetcode.com/u/Ishika_Guptaa25/</span>
             </div>
           </a>
 
           <!-- Instagram Link -->
-          <a href="https://instagram.com/your_handle" target="_blank" class="contact-row">
+          <a href="https://instagram.com/ishikaaa_guptaaa" target="_blank" class="contact-row">
             <span class="contact-code">[INST]</span>
             <div class="contact-info">
               <span class="contact-label">INSTAGRAM</span>
-              <span class="contact-value">instagram.com/your_handle</span>
+              <span class="contact-value">instagram.com/ishikaaa_guptaaa</span>
             </div>
           </a>
 
@@ -1653,6 +1373,16 @@
     font-weight: 500;
   }
 
+  .form-status {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 4px;
+    min-height: 18px;
+  }
+  .form-status.success { color: #0a7a34; }
+  .form-status.error { color: #b3116a; }
+  .form-status.sending { color: #444; }
+
   /* ---------- Submit Button ---------- */
   .submit-btn {
     align-self: flex-start;
@@ -1681,6 +1411,11 @@
   .submit-btn:active {
     transform: translate(0, 0);
     box-shadow: 2px 2px 0px #000;
+  }
+
+  .submit-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
   }
 
   .btn-arrow {
@@ -1805,19 +1540,7 @@
     cloudField.appendChild(c);
   }
 
-  // Falling sakura petals
-  const petalField = document.getElementById('petals');
-  for(let i=0;i<16;i++){
-    const p = document.createElement('div');
-    p.className = 'petal';
-    p.style.left = Math.random()*100 + '%';
-    p.style.animationDuration = (6 + Math.random()*6) + 's';
-    p.style.animationDelay = (-Math.random()*10) + 's';
-    p.style.opacity = 0.5 + Math.random()*0.5;
-    petalField.appendChild(p);
-  }
-
-  // Girly heart-burst micro-interaction for buttons and links
+  // Girly heart-burst micro-interaction (buttons/links only — never on keyboard input)
   function heartBurst(x, y){
     const hearts = ['💗','✦','💖'];
     for(let i=0;i<4;i++){
@@ -1832,9 +1555,56 @@
       setTimeout(() => h.remove(), 950);
     }
   }
-  document.querySelectorAll('.start-btn, .submit-btn, .pixel-btn.link, .contact-row').forEach(el => {
+  document.querySelectorAll('.start-btn, .pixel-btn.link, .contact-row').forEach(el => {
     el.addEventListener('click', (e) => heartBurst(e.clientX, e.clientY));
   });
+
+  // ---------- Contact form: submit via fetch so it never navigates away,
+  // and shows a clear success / error status right under the button ----------
+  const contactForm = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const submitBtnLabel = document.getElementById('submitBtnLabel');
+  const formStatus = document.getElementById('formStatus');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      submitBtn.disabled = true;
+      submitBtnLabel.textContent = 'Sending...';
+      formStatus.textContent = 'Sending your message...';
+      formStatus.className = 'form-status sending';
+
+      const formData = new FormData(contactForm);
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          formStatus.textContent = "Message sent! I'll get back to you soon 💗";
+          formStatus.className = 'form-status success';
+          heartBurst(submitBtn.getBoundingClientRect().left, submitBtn.getBoundingClientRect().top);
+          contactForm.reset();
+        } else {
+          const data = await response.json().catch(() => null);
+          const msg = (data && data.errors && data.errors.map(x => x.message).join(', '))
+            || 'Something went wrong sending your message. Please email me directly instead.';
+          formStatus.textContent = msg;
+          formStatus.className = 'form-status error';
+        }
+      } catch (err) {
+        formStatus.textContent = 'Network error — please email me directly at ishikagpt1@gmail.com.';
+        formStatus.className = 'form-status error';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtnLabel.textContent = 'Send Message';
+      }
+    });
+  }
 
   // 24x24 Matrix Map for Pixel Art Girl
   const girlCharacter = [
@@ -1944,6 +1714,40 @@
     });
   });
 </script>
+<script>
 
+const form = document.getElementById("contact-form");
+
+form.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const response = await fetch(form.action,{
+
+        method:"POST",
+
+        body:new FormData(form),
+
+        headers:{
+            Accept:"application/json"
+        }
+
+    });
+
+    if(response.ok){
+
+        alert("🎮 Mission Sent Successfully!");
+
+        form.reset();
+
+    }else{
+
+        alert("❌ Failed to send message.");
+
+    }
+
+});
+
+</script>
 </body>
 </html>
