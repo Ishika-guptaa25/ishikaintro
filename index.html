@@ -517,6 +517,235 @@
     left: 0;
     color: #bd0b62;
   }
+
+  /* ==========================================================================
+     HIDDEN GAME-WORLD INTERACTIONS (Resume / GitHub / LinkedIn / Contact)
+     Replaces the old plain "game menu" links — these live inside the scene
+     itself as discoverable objects: a save-point, a treasure chest, a
+     glowing crystal portal, and a signal mailbox.
+     ========================================================================== */
+  .game-object{
+    position:absolute;
+    z-index:6;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    cursor:pointer;
+    background:none;
+    border:none;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+    animation: objFloat 3.2s ease-in-out infinite;
+  }
+  .game-object:focus-visible{ outline:3px dashed var(--baby-pink); outline-offset:6px; border-radius:8px; }
+  @keyframes objFloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-7px);} }
+
+  .object-glow{
+    position:absolute;
+    left:50%; top:55%;
+    width:60px; height:60px;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle, rgba(255,95,180,0.55) 0%, rgba(255,95,180,0) 70%);
+    border-radius:50%;
+    z-index:-1;
+    animation: glowPulse 2.4s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes glowPulse{ 0%,100%{ opacity:.45; transform:translate(-50%,-50%) scale(0.85);} 50%{ opacity:.9; transform:translate(-50%,-50%) scale(1.15);} }
+
+  .object-label{
+    font-family:'Press Start 2P', monospace;
+    font-size:8.5px;
+    color:#fff;
+    background:rgba(0,0,0,.78);
+    border:2px solid var(--baby-pink);
+    border-radius:4px;
+    padding:4px 8px;
+    white-space:nowrap;
+    opacity:.85;
+    transform:translateY(0) scale(1);
+    transition: opacity .2s ease, transform .2s ease, box-shadow .2s ease;
+    margin-bottom:6px;
+    pointer-events:none;
+    letter-spacing:.5px;
+  }
+  .object-sublabel{
+    font-family:'VT323', monospace;
+    font-size:12px;
+    color:var(--baby-pink);
+    opacity:.75;
+    transform:translateY(0);
+    transition: opacity .2s ease, transform .2s ease;
+    margin-bottom:4px;
+    pointer-events:none;
+    text-shadow:1px 1px 0 #000;
+  }
+  .game-object:hover .object-label,
+  .game-object:focus-visible .object-label{
+    opacity:1;
+    transform:translateY(-2px) scale(1.08);
+    box-shadow:0 0 12px var(--pink);
+  }
+  .game-object:hover .object-sublabel,
+  .game-object:focus-visible .object-sublabel{
+    opacity:1;
+    transform:translateY(-2px);
+  }
+  .game-object:hover,
+  .game-object:focus-visible{
+    animation-play-state: paused;
+    transform:translateY(-4px) scale(1.08);
+  }
+  .game-object:active{ transform: translateY(1px) scale(0.96); }
+
+  /* --- Save Point (Resume) --- */
+  .save-point{ left:8%; bottom:118px; }
+  .floppy-sprite{
+    width:36px; height:36px;
+    background:#2b2530;
+    border:3px solid #000;
+    border-radius:3px;
+    position:relative;
+    box-shadow:0 4px 0 rgba(0,0,0,.5);
+  }
+  .floppy-sprite::before{
+    content:'';
+    position:absolute; top:4px; left:6px;
+    width:20px; height:11px;
+    background:var(--baby-pink);
+    border:2px solid #000;
+  }
+  .floppy-sprite::after{
+    content:'';
+    position:absolute; bottom:4px; left:5px;
+    width:26px; height:15px;
+    background:#fff;
+    border:2px solid #000;
+  }
+  .save-point.saving .floppy-sprite{
+    animation: floppySpin .5s linear infinite;
+  }
+  @keyframes floppySpin{
+    0%{ transform:rotate(0deg) scale(1);}
+    50%{ transform:rotate(180deg) scale(1.15);}
+    100%{ transform:rotate(360deg) scale(1);}
+  }
+  .save-point.saving .object-glow{ animation: glowPulse .4s ease-in-out infinite; background:radial-gradient(circle, rgba(255,255,255,0.75) 0%, rgba(255,95,180,0) 70%); }
+
+  /* --- Treasure Chest (GitHub) --- */
+  .treasure-chest{ left:21%; bottom:14px; }
+  .chest-sprite{ width:46px; height:36px; position:relative; }
+  .chest-base{
+    position:absolute; bottom:0; left:0; width:100%; height:24px;
+    background:#8a4b1e; border:3px solid #000; border-radius:0 0 6px 6px;
+    box-shadow:0 4px 0 rgba(0,0,0,.5);
+  }
+  .chest-base::after{
+    content:''; position:absolute; top:4px; left:50%; width:8px; height:8px;
+    transform:translateX(-50%);
+    background:#ffd76a; border:2px solid #000; border-radius:2px;
+  }
+  .chest-lid{
+    position:absolute; top:0; left:0; width:100%; height:16px;
+    background:var(--hot-pink); border:3px solid #000; border-radius:6px 6px 0 0;
+    transform-origin:bottom left;
+    transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  .treasure-chest.open .chest-lid{ transform: translateY(-6px) rotate(-38deg); }
+  .treasure-chest.open .chest-sprite::before{
+    content:'✦';
+    position:absolute; top:-26px; left:50%; transform:translateX(-50%);
+    font-size:20px; color:#fffb8a;
+    animation: sparkleUp .7s ease-out forwards;
+  }
+  @keyframes sparkleUp{ 0%{ opacity:0; transform:translate(-50%,10px) scale(.4);} 40%{opacity:1;} 100%{ opacity:0; transform:translate(-50%,-18px) scale(1.2);} }
+
+  /* --- Crystal Portal (LinkedIn) --- */
+  .crystal-portal{ left:59%; bottom:150px; animation-duration:3.8s; }
+  .crystal-shape{
+    width:0; height:0;
+    border-left:15px solid transparent;
+    border-right:15px solid transparent;
+    border-bottom:24px solid var(--pink);
+    filter: drop-shadow(0 0 10px var(--pink));
+    position:relative;
+  }
+  .crystal-shape::after{
+    content:'';
+    position:absolute; top:24px; left:-15px;
+    width:0; height:0;
+    border-left:15px solid transparent;
+    border-right:15px solid transparent;
+    border-top:13px solid var(--deep-pink);
+  }
+  .crystal-portal .object-glow{ background:radial-gradient(circle, rgba(255,95,180,0.65) 0%, rgba(255,95,180,0) 70%); }
+  .crystal-portal.active .crystal-shape{ animation: crystalSpin .7s ease-in-out; }
+  @keyframes crystalSpin{ 0%{ transform:scale(1) rotate(0deg);} 50%{ transform:scale(1.3) rotate(180deg);} 100%{ transform:scale(1) rotate(360deg);} }
+  .crystal-portal.active::after{
+    content:'';
+    position:absolute; left:50%; top:60%;
+    width:10px; height:10px;
+    border:3px solid #fff;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    animation: portalRing .7s ease-out forwards;
+    pointer-events:none;
+  }
+  @keyframes portalRing{ 0%{ width:10px; height:10px; opacity:1;} 100%{ width:90px; height:90px; opacity:0;} }
+
+  /* --- Mailbox (Contact) --- */
+  .mailbox-npc{ left:65%; bottom:14px; animation-duration:2.8s; }
+  .mailbox-sprite{
+    width:28px; height:34px;
+    background:var(--pink);
+    border:3px solid #000;
+    border-radius:10px 10px 4px 4px;
+    position:relative;
+    box-shadow:0 4px 0 rgba(0,0,0,.5);
+  }
+  .mailbox-sprite::before{
+    content:''; position:absolute; bottom:-9px; left:50%; transform:translateX(-50%);
+    width:4px; height:10px; background:#5c3548; border:1px solid #000;
+  }
+  .mailbox-flag{
+    position:absolute; right:-9px; top:5px;
+    width:9px; height:13px;
+    background:#fff; border:2px solid #000;
+    transform-origin:bottom;
+    transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .mailbox-npc.active .mailbox-flag{ transform: rotate(-75deg); }
+  .mailbox-npc.active .mailbox-sprite{ animation: mailboxShake .4s ease-in-out; }
+  @keyframes mailboxShake{ 0%,100%{ transform:rotate(0);} 25%{ transform:rotate(-6deg);} 75%{ transform:rotate(6deg);} }
+
+  /* --- CRT save-flicker (applied to .crt-frame during resume save) --- */
+  .crt-frame.flicker{ animation: crtFlicker .12s steps(2) 8; }
+  @keyframes crtFlicker{
+    0%,100%{ filter:brightness(1); }
+    50%{ filter:brightness(1.6) saturate(1.4); }
+  }
+
+  /* --- Pixel-burst particles (Resume/Chest/Portal/Mailbox click feedback) --- */
+  .pixel-particle{
+    position:fixed;
+    width:6px; height:6px;
+    pointer-events:none;
+    z-index:999;
+    border:1px solid rgba(0,0,0,.4);
+    animation: pixelFly .65s ease-out forwards;
+  }
+  @keyframes pixelFly{
+    0%{ transform:translate(0,0) scale(1); opacity:1; }
+    100%{ transform:translate(var(--dx),var(--dy)) scale(.3); opacity:0; }
+  }
+
+  @media (max-width:750px){
+    .game-object{ position:static; display:inline-flex; margin:6px 10px; animation:none; }
+    .game-object:hover, .game-object:focus-visible{ transform:scale(1.06); }
+    .scene{ align-items:center; row-gap:20px; }
+    .scene .game-object .object-label{ font-size:7.5px; }
+    .scene .game-object .object-sublabel{ font-size:10px; }
+  }
 </style>
 </head>
 <body>
@@ -542,6 +771,8 @@
         START <span class="blink">▮</span>
       </button>
 
+      <a href="resume.pdf" download id="resumeDownloadLink" style="display:none;" aria-hidden="true"></a>
+
       <div class="scene">
         <div class="lamp" aria-hidden="true"></div>
         <div class="sprite" id="sprite" aria-hidden="true"></div>
@@ -549,6 +780,41 @@
           <div class="pixel-tree" id="pixelTree"></div>
           <div class="cat"><div class="cat-face"></div></div>
         </div>
+
+        <!-- Hidden game-world interactions: Resume / GitHub / LinkedIn / Contact -->
+        <button type="button" class="game-object save-point" id="saveResume" aria-label="Save point — download resume">
+          <span class="object-label">[SAVE POINT]</span>
+          <span class="object-sublabel">resume.pdf</span>
+          <div class="object-glow"></div>
+          <div class="floppy-sprite"></div>
+        </button>
+
+        <button type="button" class="game-object treasure-chest" id="githubChest" aria-label="Treasure chest — open GitHub">
+          <span class="object-label">[TREASURE]</span>
+          <span class="object-sublabel">GitHub quest log</span>
+          <div class="object-glow"></div>
+          <div class="chest-sprite">
+            <div class="chest-lid"></div>
+            <div class="chest-base"></div>
+          </div>
+        </button>
+
+        <button type="button" class="game-object crystal-portal" id="linkedinCrystal" aria-label="Glowing crystal — open portal to LinkedIn">
+          <span class="object-label">[PORTAL]</span>
+          <span class="object-sublabel">LinkedIn realm</span>
+          <div class="object-glow"></div>
+          <div class="crystal-shape"></div>
+        </button>
+
+        <button type="button" class="game-object mailbox-npc" id="contactMailbox" aria-label="Mailbox — send a message">
+          <span class="object-label">[MAILBOX]</span>
+          <span class="object-sublabel">Send a signal</span>
+          <div class="object-glow"></div>
+          <div class="mailbox-sprite">
+            <div class="mailbox-flag"></div>
+          </div>
+        </button>
+
         <div class="ground-texture"></div>
       </div>
     </div>
@@ -670,7 +936,7 @@
   </div>
 </section>
 
-<<!-- ==========================================================================
+<!-- ==========================================================================
      LEVEL 2: FULL ISOMETRIC 3D KEYBOARD SKILLS SECTION
      ========================================================================== -->
 <section id="level2" class="keyboard-skills-section">
@@ -1714,6 +1980,126 @@
   document.querySelectorAll('.start-btn, .pixel-btn.link, .contact-row').forEach(el => {
     el.addEventListener('click', (e) => heartBurst(e.clientX, e.clientY));
   });
+
+  // ---------- Hidden game-world interactions: Resume / GitHub / LinkedIn / Contact ----------
+
+  // Pixel-square burst — retro version of the heart burst, used for game-object clicks
+  function pixelBurst(x, y, color){
+    for(let i=0;i<9;i++){
+      const p = document.createElement('div');
+      p.className = 'pixel-particle';
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      p.style.background = color || 'var(--pink)';
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 26 + Math.random() * 44;
+      p.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+      p.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+      p.style.animationDelay = (Math.random() * 0.08) + 's';
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 760);
+    }
+  }
+
+  // Reuse the existing "SKILL UNLOCKED" toast for game-object feedback
+  const skillToast = document.getElementById('skillToast');
+  let toastTimer = null;
+  function showToast(text){
+    if (!skillToast) return;
+    skillToast.textContent = text;
+    skillToast.style.transform = 'translate(-50%, 0%)';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      skillToast.style.transform = 'translate(-50%, -140%)';
+    }, 2200);
+  }
+
+  function objCenter(el){
+    const r = el.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+  }
+
+  // Make each game-object keyboard accessible (Enter / Space triggers the same click)
+  function makeActivatable(el, handler){
+    el.addEventListener('click', handler);
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handler(e);
+      }
+    });
+  }
+
+  // --- Save Point: pixel-burst + CRT flicker "save" sequence, then downloads resume.pdf ---
+  const saveResume = document.getElementById('saveResume');
+  const crtFrame = document.querySelector('.crt-frame');
+  const resumeDownloadLink = document.getElementById('resumeDownloadLink');
+  if (saveResume) {
+    makeActivatable(saveResume, () => {
+      if (saveResume.classList.contains('saving')) return;
+      const c = objCenter(saveResume);
+      saveResume.classList.add('saving');
+      pixelBurst(c.x, c.y, '#ffffff');
+      if (crtFrame) crtFrame.classList.add('flicker');
+      showToast('✦ SAVING FILE...');
+      setTimeout(() => {
+        if (crtFrame) crtFrame.classList.remove('flicker');
+        showToast('✦ SAVE COMPLETE — DOWNLOADING RESUME');
+        pixelBurst(c.x, c.y, 'var(--baby-pink)');
+        if (resumeDownloadLink) resumeDownloadLink.click();
+        saveResume.classList.remove('saving');
+      }, 1050);
+    });
+  }
+
+  // --- Treasure Chest: lid pops open with a sparkle, then opens GitHub ---
+  const githubChest = document.getElementById('githubChest');
+  if (githubChest) {
+    makeActivatable(githubChest, () => {
+      if (githubChest.classList.contains('open')) return;
+      const c = objCenter(githubChest);
+      githubChest.classList.add('open');
+      pixelBurst(c.x, c.y, '#ffd76a');
+      showToast('✦ TREASURE FOUND — OPENING GITHUB');
+      setTimeout(() => {
+        window.open('https://github.com/ishika-guptaa25', '_blank');
+        githubChest.classList.remove('open');
+      }, 650);
+    });
+  }
+
+  // --- Crystal Portal: spins and opens a ripple ring, then teleports to LinkedIn ---
+  const linkedinCrystal = document.getElementById('linkedinCrystal');
+  if (linkedinCrystal) {
+    makeActivatable(linkedinCrystal, () => {
+      if (linkedinCrystal.classList.contains('active')) return;
+      const c = objCenter(linkedinCrystal);
+      linkedinCrystal.classList.add('active');
+      pixelBurst(c.x, c.y, '#ffffff');
+      showToast('✦ PORTAL ACTIVATED — TELEPORTING');
+      setTimeout(() => {
+        window.open('https://www.linkedin.com/in/ishika-guptax/', '_blank');
+        linkedinCrystal.classList.remove('active');
+      }, 700);
+    });
+  }
+
+  // --- Mailbox: flag flips up and shakes, then scrolls to the Contact terminal ---
+  const contactMailbox = document.getElementById('contactMailbox');
+  if (contactMailbox) {
+    makeActivatable(contactMailbox, () => {
+      if (contactMailbox.classList.contains('active')) return;
+      const c = objCenter(contactMailbox);
+      contactMailbox.classList.add('active');
+      pixelBurst(c.x, c.y, 'var(--baby-pink)');
+      showToast('✦ SIGNAL SENT — OPENING COMMS');
+      setTimeout(() => {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+        contactMailbox.classList.remove('active');
+      }, 500);
+    });
+  }
 
   // ---------- Contact form: submit via fetch so it never navigates away,
   // and shows a clear success / error status right under the button ----------
