@@ -177,9 +177,17 @@
     100%{ transform: translate(var(--dx,0px), -70px) scale(1.3); opacity:0; }
   }
 
-  .lamp{ position:relative; width:12px; height:240px; background:#333; border-left: 2px solid #555; z-index: 2;}
+  .lamp{ position:relative; width:12px; height:240px; background:#333; border-left: 2px solid #555; z-index: 2; margin-left:-18px;}
   .lamp::before{ content:""; position:absolute; top:0; left:0; width:55px; height:12px; background:#333; }
   .lamp::after{ content:""; position:absolute; top:-12px; left:38px; width:26px; height:26px; background:var(--baby-pink); border-radius:50%; box-shadow:0 0 35px 12px rgba(255,177,222,.6); border: 2px solid #fff; }
+
+  .sprite-wrap{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    z-index:3;
+  }
 
   .sprite{
     display:grid; 
@@ -189,8 +197,67 @@
     filter:drop-shadow(0 5px 0px rgba(0,0,0,0.6));
     z-index: 3;
     margin-bottom: 8px;
+    transform-origin: bottom center;
+    animation: spriteBreathe 2.6s ease-in-out infinite;
+    transition: filter .25s ease;
   }
   .sprite div{ width:100%; height:100%; }
+  @keyframes spriteBreathe{ 0%,100%{ transform:scaleY(1) scaleX(1);} 50%{ transform:scaleY(1.025) scaleX(0.99);} }
+  .sprite-wrap:hover .sprite{
+    animation-duration:.8s;
+    filter:drop-shadow(0 5px 0px rgba(0,0,0,0.6)) drop-shadow(0 0 16px var(--pink));
+  }
+
+  /* --- Speech bubble: cycles a greeting + roles above her head --- */
+  .hero-speech-bubble{
+    position:absolute;
+    top:-14px;
+    left:50%;
+    transform:translate(-50%, 0);
+    background:#fff;
+    color:#3a0f2e;
+    border:3px solid #000;
+    border-radius:10px;
+    padding:7px 14px;
+    font-family:'VT323', monospace;
+    font-size:16px;
+    white-space:nowrap;
+    box-shadow:4px 4px 0 rgba(0,0,0,.5);
+    z-index:7;
+    animation: bubbleFloat 3s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .hero-speech-bubble::before{
+    content:'';
+    position:absolute;
+    bottom:-9px; left:50%;
+    transform:translateX(-50%);
+    width:0; height:0;
+    border-left:8px solid transparent;
+    border-right:8px solid transparent;
+    border-top:9px solid #000;
+  }
+  .hero-speech-bubble::after{
+    content:'';
+    position:absolute;
+    bottom:-5px; left:50%;
+    transform:translateX(-50%);
+    width:0; height:0;
+    border-left:6px solid transparent;
+    border-right:6px solid transparent;
+    border-top:6px solid #fff;
+  }
+  @keyframes bubbleFloat{ 0%,100%{ transform:translate(-50%,0);} 50%{ transform:translate(-50%,-5px);} }
+
+  .hero-sparkle{
+    position:absolute;
+    color:var(--baby-pink);
+    font-size:13px;
+    text-shadow:0 0 8px var(--pink);
+    animation: twinkle 2.1s ease-in-out infinite;
+    pointer-events:none;
+    z-index:4;
+  }
 
   .tree-container { position: relative; width: 160px; height: 260px; z-index: 2; }
   .pixel-tree { display: grid; grid-template-columns: repeat(16, 1fr); width: 100%; aspect-ratio: 16/26; }
@@ -202,8 +269,9 @@
   .cat-face { position: absolute; top: 6px; left: 6px; width: 4px; height: 4px; background: #ff7bb5; box-shadow: 12px 0 #ff7bb5, 6px 4px #111; }
 
   @media (max-width:750px){
-    .scene{ flex-wrap:wrap; height:auto; gap:30px; justify-content:center; padding-bottom: 20px;}
+    .scene{ flex-wrap:wrap; height:auto; gap:30px; justify-content:center; padding-bottom: 20px; padding-top: 34px; }
     .lamp { display:none; }
+    .hero-speech-bubble{ font-size:12px; padding:6px 10px; top:-30px; }
   }
 
   /* ---------- bottom marquee HUD ---------- */
@@ -533,10 +601,14 @@
     cursor:pointer;
     background:none;
     border:none;
-    padding:0;
+    padding:8px;
     -webkit-tap-highlight-color:transparent;
+    -webkit-user-select:none;
+    user-select:none;
     animation: objFloat 3.2s ease-in-out infinite;
   }
+  .game-object,
+  .game-object *{ cursor:pointer; }
   .game-object:focus-visible{ outline:3px dashed var(--baby-pink); outline-offset:6px; border-radius:8px; }
   @keyframes objFloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-7px);} }
 
@@ -567,6 +639,8 @@
     transition: opacity .2s ease, transform .2s ease, box-shadow .2s ease;
     margin-bottom:6px;
     pointer-events:none;
+    -webkit-user-select:none;
+    user-select:none;
     letter-spacing:.5px;
   }
   .object-sublabel{
@@ -578,9 +652,12 @@
     transition: opacity .2s ease, transform .2s ease;
     margin-bottom:4px;
     pointer-events:none;
+    -webkit-user-select:none;
+    user-select:none;
     text-shadow:1px 1px 0 #000;
   }
   .game-object:hover .object-label,
+
   .game-object:focus-visible .object-label{
     opacity:1;
     transform:translateY(-2px) scale(1.08);
@@ -599,7 +676,7 @@
   .game-object:active{ transform: translateY(1px) scale(0.96); }
 
   /* --- Save Point (Resume) --- */
-  .save-point{ left:8%; bottom:118px; }
+  .save-point{ left:5%; bottom:20px; }
   .floppy-sprite{
     width:36px; height:36px;
     background:#2b2530;
@@ -633,7 +710,7 @@
   .save-point.saving .object-glow{ animation: glowPulse .4s ease-in-out infinite; background:radial-gradient(circle, rgba(255,255,255,0.75) 0%, rgba(255,95,180,0) 70%); }
 
   /* --- Treasure Chest (GitHub) --- */
-  .treasure-chest{ left:21%; bottom:14px; }
+  .treasure-chest{ left:27%; bottom:14px; }
   .chest-sprite{ width:46px; height:36px; position:relative; }
   .chest-base{
     position:absolute; bottom:0; left:0; width:100%; height:24px;
@@ -661,7 +738,7 @@
   @keyframes sparkleUp{ 0%{ opacity:0; transform:translate(-50%,10px) scale(.4);} 40%{opacity:1;} 100%{ opacity:0; transform:translate(-50%,-18px) scale(1.2);} }
 
   /* --- Crystal Portal (LinkedIn) --- */
-  .crystal-portal{ left:59%; bottom:150px; animation-duration:3.8s; }
+  .crystal-portal{ left:53%; bottom:22px; animation-duration:3.8s; }
   .crystal-shape{
     width:0; height:0;
     border-left:15px solid transparent;
@@ -693,8 +770,37 @@
   }
   @keyframes portalRing{ 0%{ width:10px; height:10px; opacity:1;} 100%{ width:90px; height:90px; opacity:0;} }
 
+  /* --- Terminal (LeetCode) --- */
+  .leetcode-terminal{ left:16%; bottom:112px; }
+  .terminal-sprite{
+    width:38px; height:30px;
+    background:#111;
+    border:3px solid #000;
+    border-radius:4px;
+    position:relative;
+    box-shadow:0 4px 0 rgba(0,0,0,.5);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .terminal-sprite::before{
+    content:'></';
+    font-family:'VT323', monospace;
+    font-size:13px;
+    color:var(--pink);
+    letter-spacing:-1px;
+  }
+  .terminal-sprite::after{
+    content:'';
+    position:absolute; bottom:-8px; left:50%; transform:translateX(-50%);
+    width:20px; height:6px;
+    background:#333; border:2px solid #000; border-radius:0 0 3px 3px;
+  }
+  .leetcode-terminal.active .terminal-sprite{ animation: terminalBlink .5s steps(2) 3; }
+  @keyframes terminalBlink{ 0%,100%{ box-shadow:0 4px 0 rgba(0,0,0,.5);} 50%{ box-shadow:0 4px 0 rgba(0,0,0,.5), 0 0 16px var(--pink);} }
+
   /* --- Mailbox (Contact) --- */
-  .mailbox-npc{ left:65%; bottom:14px; animation-duration:2.8s; }
+  .mailbox-npc{ left:63%; bottom:14px; animation-duration:2.8s; }
   .mailbox-sprite{
     width:28px; height:34px;
     background:var(--pink);
@@ -775,23 +881,35 @@
 
       <div class="scene">
         <div class="lamp" aria-hidden="true"></div>
-        <div class="sprite" id="sprite" aria-hidden="true"></div>
+        <div class="sprite-wrap">
+          <div class="hero-speech-bubble"><span id="heroSpeechText"></span><span class="blink">▮</span></div>
+          <span class="hero-sparkle" style="left:-14px; top:10%; animation-delay:.3s;">✦</span>
+          <span class="hero-sparkle" style="right:-16px; top:28%; animation-delay:1.1s;">✦</span>
+          <div class="sprite" id="sprite" aria-hidden="true"></div>
+        </div>
         <div class="tree-container" aria-hidden="true">
           <div class="pixel-tree" id="pixelTree"></div>
           <div class="cat"><div class="cat-face"></div></div>
         </div>
 
-        <!-- Hidden game-world interactions: Resume / GitHub / LinkedIn / Contact -->
-        <button type="button" class="game-object save-point" id="saveResume" aria-label="Save point — download resume">
-          <span class="object-label">[SAVE POINT]</span>
-          <span class="object-sublabel">resume.pdf</span>
+        <!-- Hidden game-world interactions: Resume / GitHub / LinkedIn / LeetCode / Contact -->
+        <button type="button" class="game-object save-point" id="saveResume" aria-label="Download resume">
+          <span class="object-label">RESUME</span>
+          <span class="object-sublabel">Download PDF</span>
           <div class="object-glow"></div>
           <div class="floppy-sprite"></div>
         </button>
 
-        <button type="button" class="game-object treasure-chest" id="githubChest" aria-label="Treasure chest — open GitHub">
-          <span class="object-label">[TREASURE]</span>
-          <span class="object-sublabel">GitHub quest log</span>
+        <button type="button" class="game-object leetcode-terminal" id="leetcodeTerminal" aria-label="Open LeetCode profile">
+          <span class="object-label">LEETCODE</span>
+          <span class="object-sublabel">View my profile</span>
+          <div class="object-glow"></div>
+          <div class="terminal-sprite"></div>
+        </button>
+
+        <button type="button" class="game-object treasure-chest" id="githubChest" aria-label="Open GitHub">
+          <span class="object-label">GITHUB</span>
+          <span class="object-sublabel">View my code</span>
           <div class="object-glow"></div>
           <div class="chest-sprite">
             <div class="chest-lid"></div>
@@ -799,16 +917,16 @@
           </div>
         </button>
 
-        <button type="button" class="game-object crystal-portal" id="linkedinCrystal" aria-label="Glowing crystal — open portal to LinkedIn">
-          <span class="object-label">[PORTAL]</span>
-          <span class="object-sublabel">LinkedIn realm</span>
+        <button type="button" class="game-object crystal-portal" id="linkedinCrystal" aria-label="Open LinkedIn">
+          <span class="object-label">LINKEDIN</span>
+          <span class="object-sublabel">Connect with me</span>
           <div class="object-glow"></div>
           <div class="crystal-shape"></div>
         </button>
 
-        <button type="button" class="game-object mailbox-npc" id="contactMailbox" aria-label="Mailbox — send a message">
-          <span class="object-label">[MAILBOX]</span>
-          <span class="object-sublabel">Send a signal</span>
+        <button type="button" class="game-object mailbox-npc" id="contactMailbox" aria-label="Contact me">
+          <span class="object-label">CONTACT ME</span>
+          <span class="object-sublabel">Let's build together</span>
           <div class="object-glow"></div>
           <div class="mailbox-sprite">
             <div class="mailbox-flag"></div>
@@ -2030,7 +2148,7 @@
     });
   }
 
-  // --- Save Point: pixel-burst + CRT flicker "save" sequence, then downloads resume.pdf ---
+  // --- Resume: pixel-burst + CRT flicker "save" sequence, then downloads resume.pdf ---
   const saveResume = document.getElementById('saveResume');
   const crtFrame = document.querySelector('.crt-frame');
   const resumeDownloadLink = document.getElementById('resumeDownloadLink');
@@ -2041,10 +2159,10 @@
       saveResume.classList.add('saving');
       pixelBurst(c.x, c.y, '#ffffff');
       if (crtFrame) crtFrame.classList.add('flicker');
-      showToast('✦ SAVING FILE...');
+      showToast('✦ PREPARING RESUME...');
       setTimeout(() => {
         if (crtFrame) crtFrame.classList.remove('flicker');
-        showToast('✦ SAVE COMPLETE — DOWNLOADING RESUME');
+        showToast('✦ DOWNLOADING RESUME');
         pixelBurst(c.x, c.y, 'var(--baby-pink)');
         if (resumeDownloadLink) resumeDownloadLink.click();
         saveResume.classList.remove('saving');
@@ -2052,7 +2170,23 @@
     });
   }
 
-  // --- Treasure Chest: lid pops open with a sparkle, then opens GitHub ---
+  // --- LeetCode: terminal blinks, then opens LeetCode profile ---
+  const leetcodeTerminal = document.getElementById('leetcodeTerminal');
+  if (leetcodeTerminal) {
+    makeActivatable(leetcodeTerminal, () => {
+      if (leetcodeTerminal.classList.contains('active')) return;
+      const c = objCenter(leetcodeTerminal);
+      leetcodeTerminal.classList.add('active');
+      pixelBurst(c.x, c.y, 'var(--pink)');
+      showToast('✦ OPENING LEETCODE');
+      setTimeout(() => {
+        window.open('https://leetcode.com/u/Ishika_Guptaa25/', '_blank');
+        leetcodeTerminal.classList.remove('active');
+      }, 600);
+    });
+  }
+
+  // --- GitHub: chest lid pops open with a sparkle, then opens GitHub ---
   const githubChest = document.getElementById('githubChest');
   if (githubChest) {
     makeActivatable(githubChest, () => {
@@ -2060,7 +2194,7 @@
       const c = objCenter(githubChest);
       githubChest.classList.add('open');
       pixelBurst(c.x, c.y, '#ffd76a');
-      showToast('✦ TREASURE FOUND — OPENING GITHUB');
+      showToast('✦ OPENING GITHUB');
       setTimeout(() => {
         window.open('https://github.com/ishika-guptaa25', '_blank');
         githubChest.classList.remove('open');
@@ -2068,7 +2202,7 @@
     });
   }
 
-  // --- Crystal Portal: spins and opens a ripple ring, then teleports to LinkedIn ---
+  // --- LinkedIn: crystal spins and opens a ripple ring, then opens LinkedIn ---
   const linkedinCrystal = document.getElementById('linkedinCrystal');
   if (linkedinCrystal) {
     makeActivatable(linkedinCrystal, () => {
@@ -2076,7 +2210,7 @@
       const c = objCenter(linkedinCrystal);
       linkedinCrystal.classList.add('active');
       pixelBurst(c.x, c.y, '#ffffff');
-      showToast('✦ PORTAL ACTIVATED — TELEPORTING');
+      showToast('✦ OPENING LINKEDIN');
       setTimeout(() => {
         window.open('https://www.linkedin.com/in/ishika-guptax/', '_blank');
         linkedinCrystal.classList.remove('active');
@@ -2084,7 +2218,7 @@
     });
   }
 
-  // --- Mailbox: flag flips up and shakes, then scrolls to the Contact terminal ---
+  // --- Contact Me: mailbox flag flips up and shakes, then scrolls to the Contact terminal ---
   const contactMailbox = document.getElementById('contactMailbox');
   if (contactMailbox) {
     makeActivatable(contactMailbox, () => {
@@ -2092,7 +2226,7 @@
       const c = objCenter(contactMailbox);
       contactMailbox.classList.add('active');
       pixelBurst(c.x, c.y, 'var(--baby-pink)');
-      showToast('✦ SIGNAL SENT — OPENING COMMS');
+      showToast('✦ OPENING CONTACT');
       setTimeout(() => {
         const contactSection = document.getElementById('contact');
         if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
@@ -2198,6 +2332,37 @@
 
   // Build top Screen Character
   buildSprite('sprite', girlCharacter, girlPalette, 24);
+
+  // ---------- Hero speech bubble: cycles a greeting + roles above her head ----------
+  const heroPhrases = [
+    "Hi! I'm Ishika 👋",
+    "ML / DS Enthusiast 🤖",
+    "Computer Vision Explorer 👁",
+    "Turning data into insight ✦",
+    "Let's build something cool 💻"
+  ];
+  const heroSpeechEl = document.getElementById('heroSpeechText');
+  let heroPhraseIndex = 0;
+  let heroTypeTimer = null;
+  function typeHeroPhrase(){
+    if (!heroSpeechEl) return;
+    const phrase = heroPhrases[heroPhraseIndex % heroPhrases.length];
+    heroSpeechEl.textContent = '';
+    let i = 0;
+    clearInterval(heroTypeTimer);
+    heroTypeTimer = setInterval(() => {
+      heroSpeechEl.textContent += phrase.charAt(i);
+      i++;
+      if (i >= phrase.length) {
+        clearInterval(heroTypeTimer);
+        setTimeout(() => {
+          heroPhraseIndex++;
+          typeHeroPhrase();
+        }, 1700);
+      }
+    }, 45);
+  }
+  typeHeroPhrase();
   // Build 3DS Screen Character
   buildSprite('dsAvatar', girlCharacter, girlPalette, 24);
 
