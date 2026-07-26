@@ -181,14 +181,6 @@
   .lamp::before{ content:""; position:absolute; top:0; left:0; width:55px; height:12px; background:#333; }
   .lamp::after{ content:""; position:absolute; top:-12px; left:38px; width:26px; height:26px; background:var(--baby-pink); border-radius:50%; box-shadow:0 0 35px 12px rgba(255,177,222,.6); border: 2px solid #fff; }
 
-  .sprite-wrap{
-    position:relative;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    z-index:3;
-  }
-
   .sprite{
     display:grid; 
     grid-template-columns:repeat(24,1fr);
@@ -197,67 +189,8 @@
     filter:drop-shadow(0 5px 0px rgba(0,0,0,0.6));
     z-index: 3;
     margin-bottom: 8px;
-    transform-origin: bottom center;
-    animation: spriteBreathe 2.6s ease-in-out infinite;
-    transition: filter .25s ease;
   }
   .sprite div{ width:100%; height:100%; }
-  @keyframes spriteBreathe{ 0%,100%{ transform:scaleY(1) scaleX(1);} 50%{ transform:scaleY(1.025) scaleX(0.99);} }
-  .sprite-wrap:hover .sprite{
-    animation-duration:.8s;
-    filter:drop-shadow(0 5px 0px rgba(0,0,0,0.6)) drop-shadow(0 0 16px var(--pink));
-  }
-
-  /* --- Speech bubble: cycles a greeting + roles above her head --- */
-  .hero-speech-bubble{
-    position:absolute;
-    top:-14px;
-    left:50%;
-    transform:translate(-50%, 0);
-    background:#fff;
-    color:#3a0f2e;
-    border:3px solid #000;
-    border-radius:10px;
-    padding:7px 14px;
-    font-family:'VT323', monospace;
-    font-size:16px;
-    white-space:nowrap;
-    box-shadow:4px 4px 0 rgba(0,0,0,.5);
-    z-index:7;
-    animation: bubbleFloat 3s ease-in-out infinite;
-    pointer-events:none;
-  }
-  .hero-speech-bubble::before{
-    content:'';
-    position:absolute;
-    bottom:-9px; left:50%;
-    transform:translateX(-50%);
-    width:0; height:0;
-    border-left:8px solid transparent;
-    border-right:8px solid transparent;
-    border-top:9px solid #000;
-  }
-  .hero-speech-bubble::after{
-    content:'';
-    position:absolute;
-    bottom:-5px; left:50%;
-    transform:translateX(-50%);
-    width:0; height:0;
-    border-left:6px solid transparent;
-    border-right:6px solid transparent;
-    border-top:6px solid #fff;
-  }
-  @keyframes bubbleFloat{ 0%,100%{ transform:translate(-50%,0);} 50%{ transform:translate(-50%,-5px);} }
-
-  .hero-sparkle{
-    position:absolute;
-    color:var(--baby-pink);
-    font-size:13px;
-    text-shadow:0 0 8px var(--pink);
-    animation: twinkle 2.1s ease-in-out infinite;
-    pointer-events:none;
-    z-index:4;
-  }
 
   .tree-container { position: relative; width: 160px; height: 260px; z-index: 2; }
   .pixel-tree { display: grid; grid-template-columns: repeat(16, 1fr); width: 100%; aspect-ratio: 16/26; }
@@ -269,9 +202,8 @@
   .cat-face { position: absolute; top: 6px; left: 6px; width: 4px; height: 4px; background: #ff7bb5; box-shadow: 12px 0 #ff7bb5, 6px 4px #111; }
 
   @media (max-width:750px){
-    .scene{ flex-wrap:wrap; height:auto; gap:30px; justify-content:center; padding-bottom: 20px; padding-top: 34px; }
+    .scene{ flex-wrap:wrap; height:auto; gap:30px; justify-content:center; padding-bottom: 20px;}
     .lamp { display:none; }
-    .hero-speech-bubble{ font-size:12px; padding:6px 10px; top:-30px; }
   }
 
   /* ---------- bottom marquee HUD ---------- */
@@ -601,14 +533,10 @@
     cursor:pointer;
     background:none;
     border:none;
-    padding:8px;
+    padding:0;
     -webkit-tap-highlight-color:transparent;
-    -webkit-user-select:none;
-    user-select:none;
     animation: objFloat 3.2s ease-in-out infinite;
   }
-  .game-object,
-  .game-object *{ cursor:pointer; }
   .game-object:focus-visible{ outline:3px dashed var(--baby-pink); outline-offset:6px; border-radius:8px; }
   @keyframes objFloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-7px);} }
 
@@ -639,8 +567,6 @@
     transition: opacity .2s ease, transform .2s ease, box-shadow .2s ease;
     margin-bottom:6px;
     pointer-events:none;
-    -webkit-user-select:none;
-    user-select:none;
     letter-spacing:.5px;
   }
   .object-sublabel{
@@ -652,12 +578,9 @@
     transition: opacity .2s ease, transform .2s ease;
     margin-bottom:4px;
     pointer-events:none;
-    -webkit-user-select:none;
-    user-select:none;
     text-shadow:1px 1px 0 #000;
   }
   .game-object:hover .object-label,
-
   .game-object:focus-visible .object-label{
     opacity:1;
     transform:translateY(-2px) scale(1.08);
@@ -881,12 +804,7 @@
 
       <div class="scene">
         <div class="lamp" aria-hidden="true"></div>
-        <div class="sprite-wrap">
-          <div class="hero-speech-bubble"><span id="heroSpeechText"></span><span class="blink">▮</span></div>
-          <span class="hero-sparkle" style="left:-14px; top:10%; animation-delay:.3s;">✦</span>
-          <span class="hero-sparkle" style="right:-16px; top:28%; animation-delay:1.1s;">✦</span>
-          <div class="sprite" id="sprite" aria-hidden="true"></div>
-        </div>
+        <div class="sprite" id="sprite" aria-hidden="true"></div>
         <div class="tree-container" aria-hidden="true">
           <div class="pixel-tree" id="pixelTree"></div>
           <div class="cat"><div class="cat-face"></div></div>
@@ -1222,8 +1140,10 @@
     aspect-ratio: 1.05;
     border-radius: 10px;
     cursor: pointer;
-    transform-style: preserve-3d;
     transition: transform 0.06s ease, box-shadow 0.06s ease;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
   }
 
   .k-pink {
@@ -1325,11 +1245,20 @@
   const keyCapEls = document.querySelectorAll('.key-cap');
 
   keyCapEls.forEach(key => {
-    key.addEventListener('click', () => {
+    let lastActivate = 0;
+    const activateKey = () => {
+      const now = Date.now();
+      if (now - lastActivate < 150) return; // avoid double-firing from pointerdown + click
+      lastActivate = now;
       key.classList.add('pressed');
-      updateSkillInfo(key, true); // Updates descriptions instantly on click
+      updateSkillInfo(key, true); // Updates descriptions instantly on activation
       setTimeout(() => { key.classList.remove('pressed'); }, 100);
-    });
+    };
+    // pointerdown gives immediate, reliable feedback even if the tilted 3D
+    // transform shifts slightly between press and release; click is kept
+    // as a fallback for environments without pointer events.
+    key.addEventListener('pointerdown', activateKey);
+    key.addEventListener('click', activateKey);
   });
 </script>
 <!-- ==========================================================================
@@ -2332,37 +2261,6 @@
 
   // Build top Screen Character
   buildSprite('sprite', girlCharacter, girlPalette, 24);
-
-  // ---------- Hero speech bubble: cycles a greeting + roles above her head ----------
-  const heroPhrases = [
-    "Hi! I'm Ishika 👋",
-    "ML / DS Enthusiast 🤖",
-    "Computer Vision Explorer 👁",
-    "Turning data into insight ✦",
-    "Let's build something cool 💻"
-  ];
-  const heroSpeechEl = document.getElementById('heroSpeechText');
-  let heroPhraseIndex = 0;
-  let heroTypeTimer = null;
-  function typeHeroPhrase(){
-    if (!heroSpeechEl) return;
-    const phrase = heroPhrases[heroPhraseIndex % heroPhrases.length];
-    heroSpeechEl.textContent = '';
-    let i = 0;
-    clearInterval(heroTypeTimer);
-    heroTypeTimer = setInterval(() => {
-      heroSpeechEl.textContent += phrase.charAt(i);
-      i++;
-      if (i >= phrase.length) {
-        clearInterval(heroTypeTimer);
-        setTimeout(() => {
-          heroPhraseIndex++;
-          typeHeroPhrase();
-        }, 1700);
-      }
-    }, 45);
-  }
-  typeHeroPhrase();
   // Build 3DS Screen Character
   buildSprite('dsAvatar', girlCharacter, girlPalette, 24);
 
